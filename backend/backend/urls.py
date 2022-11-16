@@ -19,12 +19,11 @@ from rest_framework import routers
 from degree_tool import views
 
 router = routers.DefaultRouter()
-router.register(r'levelingcourses', views.LevelingCourseView, 'levelingcourse')
 router.register(r'courses', views.CourseView, 'course')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-
+    path('api/audit/', views.audit, name = 'audit')
 ]
