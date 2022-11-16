@@ -20,6 +20,7 @@ from degree_tool import views
 
 router = routers.DefaultRouter()
 router.register(r'levelingcourses', views.LevelingCourseView, 'levelingcourse')
+router.register(r'courses', views.CourseView, 'course')
 
 
 urlpatterns = [
