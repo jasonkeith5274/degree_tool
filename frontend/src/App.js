@@ -10,18 +10,22 @@ import { Grid } from '@mui/material';
 import {useState} from 'react';
 import {useRef} from 'react';
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 
 function App() {
 
   const [degreeTrack, setDegreeTrack] = React.useState('');
+  
+  const [levelingCourses, setLevelingCourses] = React.useState('');
 
   const inputRef = useRef(null);
 
+  const handleCourseChange = (event) => {
+    setLevelingCourses(event.target.value);
+  }
 
   const handleChange = (event) => {
     setDegreeTrack(event.target.value);
-    const tmp = event.target.value
-    console.log(tmp)
   };
 
   const handleClick = () => {
@@ -46,6 +50,10 @@ function App() {
     console.log(fileObj);
     console.log(fileObj.name);
     
+  }
+
+  const handleAuditClick = event => {
+
   }
 
   /*
@@ -108,6 +116,16 @@ function App() {
           </Select>
           <FormHelperText>Enter the Degree Track</FormHelperText>
         </FormControl>
+        <TextField
+          id="LevelingCourses"
+          label="Leveling Courses"
+          value={levelingCourses}
+          onChange={handleCourseChange}
+          margin="normal"
+        />
+        <Button
+        variant="contained"
+        onClick={handleAuditClick}>Audit Transcript</Button>
       </Stack>
     </div>
   );
