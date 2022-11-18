@@ -53,29 +53,9 @@ function App() {
   }
 
   const handleAuditClick = event => {
-
+      
   }
 
-  /*
-  return (
-    <div 
-      style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100vh',
-      }}>
-      <input
-        style={{display: 'none'}}
-        ref={inputRef}
-        type="file"
-        onChange={handleFileChange}
-      />
-
-      <button onClick={handleClick}>Open file upload box</button>
-    </div>
-  );
-  */
   
   return (
     <div

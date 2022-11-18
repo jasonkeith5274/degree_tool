@@ -34,23 +34,29 @@ def audit(request):
     if len(leveling_courses) == 1 and leveling_courses[0] == '':
         leveling_courses = None
 
-    full_track = track
-    full_track = full_track.strip()
+    full_track = ""
 
-    if track == "Traditional":
+    if track == 70:
         track = "trad"
-    if track == "Networks and Telecommunications":
+        full_track = "Traditional"
+    if track == 50:
         track = "nat"
-    if track == "Intelligent Systems":
+        full_track = "Networks and Telecommunication"
+    if track == 30:
         track = "is"
-    if track == "Interactive Computing":
+        full_track = "Intelligent Systems"
+    if track == 40:
         track = "ic"
-    if track == "Systems":
+        full_track = "Interactive Computing"
+    if track == 60:
         track == "sys"
-    if track == "Data Science":
+        full_track = "Systems"
+    if track == 10:
         track = "ds"
-    if track == "Cybersecurity":
+        full_track = "Data Science"
+    if track == 20:
         track = "cs"
+        full_track = "Cybersecurity"
 
 
     extra_earned = 0
