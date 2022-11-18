@@ -11,6 +11,7 @@ import {useState} from 'react';
 import {useRef} from 'react';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import axios from "axios" 
 
 function App() {
 
@@ -18,10 +19,13 @@ function App() {
   
   const [levelingCourses, setLevelingCourses] = React.useState('');
 
+  const [fileObj, setFileobj] = React.useState('');
+
   const inputRef = useRef(null);
 
   const handleCourseChange = (event) => {
     setLevelingCourses(event.target.value);
+    console.log(fileObj)
   }
 
   const handleChange = (event) => {
@@ -34,6 +38,7 @@ function App() {
   };
 
   const handleFileChange = event => {
+    setFileobj(event.target.files[0])
     const fileObj = event.target.files && event.target.files[0];
     if (!fileObj) {
       return;
@@ -52,9 +57,40 @@ function App() {
     
   }
 
+  
   const handleAuditClick = event => {
+    
+      const formData = new FormData();
+      formData.append(
+        "file",
+        this.fileObj
+      );
+      formData.append(
+        "track",
+        this.degreeTrack
+      );
+      formData.append(
+        "leveling_courses",
+        this.levelingCourses
+      );
+
+      axios({
+        method: "post",
+        url: "http://localhost:8000/api/audit/",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+        .then(function (response) {
+          //handle success
+          console.log(response);
+        })
+        .catch(function (response) {
+          //handle error
+          console.log(response);
+        });
       
   }
+  
 
   
   return (
