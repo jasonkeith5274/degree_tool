@@ -12,6 +12,7 @@ import {useRef} from 'react';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import axios from "axios" 
+import fileDownload from 'js-file-download'
 
 function App() {
 
@@ -48,30 +49,24 @@ function App() {
 
     // 👇️ reset file input
     event.target.value = null;
-
-    // 👇️ is now empty
-    console.log(event.target.files);
-
-    console.log(fileObj);
-    console.log(fileObj.name);
     
   }
 
   
   const handleAuditClick = event => {
     
-      const formData = new FormData();
+      var formData = new FormData();
       formData.append(
-        "file",
-        this.fileObj
+        'track',
+        degreeTrack.toString()
       );
       formData.append(
-        "track",
-        this.degreeTrack
+        'leveling_courses',
+        levelingCourses.toString()
       );
       formData.append(
-        "leveling_courses",
-        this.levelingCourses
+        'file',
+        fileObj
       );
 
       axios({
@@ -79,10 +74,12 @@ function App() {
         url: "http://localhost:8000/api/audit/",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
+        responseType: 'blob'
       })
         .then(function (response) {
           //handle success
           console.log(response);
+          fileDownload(response.data, "transcript_audit.pdf")
         })
         .catch(function (response) {
           //handle error

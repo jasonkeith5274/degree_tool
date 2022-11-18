@@ -25,9 +25,10 @@ class CourseView(viewsets.ModelViewSet):
 def audit(request):
 
     data = request.POST.copy()
-    track = data.get("track")
-    leveling_courses = data.get("leveling_courses")
+    track = int(data.get("track"))
+    leveling_courses = str(data.get("leveling_courses"))
     leveling_courses = leveling_courses.split(',')
+
 
     leveling_courses = [item.strip() for item in leveling_courses]
 
@@ -72,6 +73,7 @@ def audit(request):
     total_hours = 0
     combined_earned = 0 # required: -
 
+    required_other_elective_hours = 0
     required_elective_hours = 0
     required_core_hours = 0
     other_elective_hours = 0
@@ -110,6 +112,7 @@ def audit(request):
     core_classes = core_classes['class_num']
 
     file = None
+    filename = ""
     for filename, file in request.FILES.items():
         name = request.FILES[filename].name
     
@@ -184,7 +187,7 @@ def audit(request):
                 elective_earned = elective_earned + float(line_arr[len(line_arr) - 1])
                 classes_completed.append(line_arr[1])
                 elective_courses_taken.append(line_arr[1])
-                print("Elective Course: " + line_arr[1])
+                #print("Elective Course: " + line_arr[1])
                 continue
 
             if other_elective_hours < required_other_elective_hours:
@@ -288,7 +291,7 @@ def audit(request):
         'Leveling/Pre-reqs left: ' + leveling_courses_left_str,
         'Leveling/Pre-reqs completed: ' + leveling_courses_taken_str,
         ' ',
-        'Outstadning Requirements: '
+        'Outstanding Requirements: '
         ' ',
         core_gpa_needed_str,
         elective_gpa_needed_str
