@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div>
-      <p> Praniggalous </p>
+      <p> Form </p>
       <Button variant="contained">Hello World</Button>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <InputLabel>Degree Track</InputLabel>
