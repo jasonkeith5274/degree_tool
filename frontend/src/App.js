@@ -20,6 +20,8 @@ function App() {
 
   const handleChange = (event) => {
     setDegreeTrack(event.target.value);
+    const tmp = event.target.value
+    console.log(tmp)
   };
 
   const handleClick = () => {
@@ -77,7 +79,15 @@ function App() {
       }}>
       <p> </p>
       <Stack spacing={2}>
-        <Button variant="contained">Select Transcript File</Button>
+        <input
+          style={{display: 'none'}}
+          ref={inputRef}
+          type="file"
+          onChange={handleFileChange}
+        />
+        <Button 
+        variant="contained"
+        onClick={handleClick}>Select Transcript File</Button>
         <FormControl sx={{ m: 1, minWidth: 120 }}>
           <InputLabel>Degree Track</InputLabel>
           <Select
