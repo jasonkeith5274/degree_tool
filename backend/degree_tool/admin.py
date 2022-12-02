@@ -4,7 +4,7 @@ from .models import *
 
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('class_num', 'track')
+    list_display = ('id', 'class_num', 'track')
 
 # Register your models here.
 

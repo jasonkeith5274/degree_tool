@@ -18,8 +18,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 class CourseView(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
-
-
+    
 
 @csrf_exempt
 def audit(request):
