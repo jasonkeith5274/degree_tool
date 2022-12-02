@@ -66,15 +66,36 @@ function Configuration() {
     .catch(function (response) {
       console.log(response);
     });
-
-    
   }
+
+  const handleDeleteClick = event => {
+    for(let i of selectedIds)
+    { 
+      var text = "http://localhost:8000/api/course/delete/" + i;
+
+      axios({
+        method: "delete",
+        url: text,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        })
+        .then( function (response) {
+          console.log(response);
+        })
+        .catch(function (response) {
+          console.log(response)
+        });
+      }
+      window.location.reload();
+    }
 
 
   const columns =  [  
     { field: 'id', headerName: 'ID', width: 150, editable: false },
     { field: 'class_num', headerName: 'Class Number', width: 260, editable: true },
-    { field: 'track', headerName: 'Track', width: 260, editable: true },]  
+    { field: 'track', headerName: 'Track', width: 150, editable: true },]  
 
   return (
     <div
@@ -84,9 +105,29 @@ function Configuration() {
       justifyContent: 'top',
       height: '100vh',
       backgroundColor:'white',
-      marginLeft: 200
+      marginLeft: 350
       }}>
-      <Stack spacing={1}>
+      
+      <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center', 
+      height: 800, 
+      width: '50%',
+      marginLeft: 0,
+      marginRight: 50,
+      marginTop: 33 }}>
+        <DataGrid
+          rows={classes}
+          editMode="row"
+          columns={columns}
+          pageSize={13}
+          rowsPerPageOptions={[5]}
+          checkboxSelection
+          onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
+        />
+    </div>  
+    <Stack spacing={1.5}>
        <TextField
           height="150"
           width="200"
@@ -107,26 +148,17 @@ function Configuration() {
         />
         <Button
         variant="contained"
-        onClick={handleClick}>Add Class</Button>
+        onClick={handleClick}
+        style={{
+          backgroundColor: "green"
+        }}>Add Class</Button>
+        <Button
+        variant="contained"
+        onClick={handleDeleteClick}
+        style={{
+          backgroundColor: "red"
+        }}>Delete Selected Courses</Button>
         </Stack>
-      <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center', 
-      height: 780, 
-      width: '50%',
-      marginLeft: 250,
-      marginTop: 33 }}>
-        <DataGrid
-          rows={classes}
-          editMode="row"
-          columns={columns}
-          pageSize={13}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
-          onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
-        />
-    </div>  
     </div>
   );
 }

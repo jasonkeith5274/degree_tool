@@ -25,5 +25,6 @@ router.register(r'courses', views.CourseView, 'course')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/audit/', views.audit, name = 'audit')
+    path('api/audit/', views.audit, name = 'audit'),
+    path('api/course/delete/<int:id>', views.delete_course)
 ]

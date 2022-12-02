@@ -21,6 +21,19 @@ class CourseView(viewsets.ModelViewSet):
     
 
 @csrf_exempt
+def delete_course(request, id):
+    if request.method == 'DELETE':
+        try:
+            course = Course.objects.get(id=id)
+            course.delete()
+            return JsonResponse({'message': 'Course was sucessfully deleted'})
+        except Course.DoesNotExist:
+            return JsonResponse({'message': 'id does not exist'})
+        
+
+
+
+@csrf_exempt
 def audit(request):
 
     data = request.POST.copy()
