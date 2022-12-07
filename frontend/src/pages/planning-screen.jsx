@@ -12,6 +12,38 @@ import { useEffect } from "react";
 
 
 const Planning = () => {
+
+  const [coreClasses, setCoreClasses] = React.useState([]);
+
+  const [electiveClasses, setElectiveClasses] = React.useState([]);
+
+  const [degreeTrack, setDegreeTrack] = React.useState("");
+
+  const handleChange = (event) => {
+    setDegreeTrack(event.target.value);
+  };
+
+
+  useEffect(() => {
+    async function fetchCoreClasses() {
+      // set up api call to get core classes
+    }
+    fetchCoreClasses();
+  }, []);
+  
+
+  useEffect(() => {
+    async function fetchElectiveClasses() {
+      // set up api call to elective classes
+    }
+  })
+
+  // this function will handle generating the pdf
+  const handleGeneratePlan = (event) => {
+
+  };
+
+
   return (
     <div
     style={{
@@ -19,11 +51,9 @@ const Planning = () => {
       alignItems: 'center',
       justifyContent: 'center',
       height: '100vh',
-      backgroundColor:'white',
       }}>
     
     <stack spacing={2}>
-     <h1>Degree Planning</h1>
      <h2>Degree Track</h2>
      <FormControl sx={{ m: 1, minWidth: 180 }}>
           <InputLabel>Degree Track</InputLabel>
