@@ -21,6 +21,14 @@ class CourseView(viewsets.ModelViewSet):
     
 
 @csrf_exempt
+def get_core_classes(request, track_val):
+    if request.method == "GET":
+        courses = Course.objects.get(track=track_val)
+        return courses.class_num
+        
+
+
+@csrf_exempt
 def delete_course(request, id):
     if request.method == 'DELETE':
         try:

@@ -26,5 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/audit/', views.audit, name = 'audit'),
-    path('api/course/delete/<int:id>', views.delete_course)
+    path('api/course/delete/<int:id>', views.delete_course),
+    path('api/course/core/<str:track>', views.get_core_classes)
 ]

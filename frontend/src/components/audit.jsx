@@ -101,6 +101,7 @@ function Audit() {
         }}>
           <p> </p>
       <Stack spacing={2}>
+      <h1>Degree Audit</h1>
         <input
           style={{display: 'none'}}
           ref={inputRef}
