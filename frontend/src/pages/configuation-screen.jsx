@@ -17,6 +17,7 @@ function Configuration() {
 
   const [track, setTrack] = useState("");
 
+
   useEffect(() => {
     async function fetchClasses() {
       const URL = "http://localhost:8000/api/courses/";

@@ -10,6 +10,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+import numpy as np
 
 
 # Create your views here.
@@ -19,6 +20,17 @@ class CourseView(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     
+
+@csrf_exempt
+def get_elective_courses(request):
+    if request.method == "GET":
+        courses = np.array(Course.objects.all().values_list('class_num', flat=True))
+        unique_courses = list(np.unique(courses))
+        unique_courses = [str(x) for x in unique_courses]
+        return JsonResponse(unique_courses, safe=False)
+
+
+
 
 @csrf_exempt
 def delete_course(request, id):
@@ -31,11 +43,15 @@ def delete_course(request, id):
             return JsonResponse({'message': 'id does not exist'})
         
 
+@csrf_exempt
+def get_core_classes(request, track):
+    if request.method == "GET":
+        courses = list(Course.objects.filter(track=track).values_list('class_num', flat=True))
+        return JsonResponse(courses, safe=False)
 
 
 @csrf_exempt
 def audit(request):
-
     data = request.POST.copy()
     track = int(data.get("track"))
     leveling_courses = str(data.get("leveling_courses"))
