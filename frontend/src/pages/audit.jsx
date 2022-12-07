@@ -10,6 +10,8 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import fileDownload from "js-file-download";
+import Header from "../components/Header";
+import { Box } from "@mui/material";
 
 function Audit() {
   const [degreeTrack, setDegreeTrack] = React.useState("");
@@ -72,54 +74,57 @@ function Audit() {
   };
 
   return (
-    <div
-      id="page-wrap"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-      }}
-    >
-      <p> </p>
-      <Stack spacing={2}>
-        <input
-          style={{ display: "none" }}
-          ref={inputRef}
-          type="file"
-          onChange={handleFileChange}
-        />
-        <Button variant="contained" onClick={handleClick}>
-          Select Transcript File
-        </Button>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel>Degree Track</InputLabel>
-          <Select value={degreeTrack} label="Track" onChange={handleChange}>
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Data Science</MenuItem>
-            <MenuItem value={20}>Cyber Security</MenuItem>
-            <MenuItem value={30}>Intelligent Systems</MenuItem>
-            <MenuItem value={40}>Interactive Computing</MenuItem>
-            <MenuItem value={50}>Networks and Telecommunications</MenuItem>
-            <MenuItem value={60}>Systems</MenuItem>
-            <MenuItem value={70}>Traditional Computer Science</MenuItem>
-          </Select>
-          <FormHelperText>Enter the Degree Track</FormHelperText>
-        </FormControl>
-        <TextField
-          id="LevelingCourses"
-          label="Leveling Courses"
-          value={levelingCourses}
-          onChange={handleCourseChange}
-          margin="normal"
-        />
-        <Button variant="contained" onClick={handleAuditClick}>
-          Audit Transcript
-        </Button>
-      </Stack>
-    </div>
+    <Box mt="20px" ml="20px">
+      <Header title="Audit" subtitle="Upload a transcript to get started" />
+      <div
+        id="page-wrap"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <p> </p>
+        <Stack spacing={2}>
+          <input
+            style={{ display: "none" }}
+            ref={inputRef}
+            type="file"
+            onChange={handleFileChange}
+          />
+          <Button variant="contained" onClick={handleClick}>
+            Select Transcript File
+          </Button>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel>Degree Track</InputLabel>
+            <Select value={degreeTrack} label="Track" onChange={handleChange}>
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>Data Science</MenuItem>
+              <MenuItem value={20}>Cyber Security</MenuItem>
+              <MenuItem value={30}>Intelligent Systems</MenuItem>
+              <MenuItem value={40}>Interactive Computing</MenuItem>
+              <MenuItem value={50}>Networks and Telecommunications</MenuItem>
+              <MenuItem value={60}>Systems</MenuItem>
+              <MenuItem value={70}>Traditional Computer Science</MenuItem>
+            </Select>
+            <FormHelperText>Enter the Degree Track</FormHelperText>
+          </FormControl>
+          <TextField
+            id="LevelingCourses"
+            label="Leveling Courses"
+            value={levelingCourses}
+            onChange={handleCourseChange}
+            margin="normal"
+          />
+          <Button variant="contained" onClick={handleAuditClick}>
+            Audit Transcript
+          </Button>
+        </Stack>
+      </div>
+    </Box>
   );
 }
 

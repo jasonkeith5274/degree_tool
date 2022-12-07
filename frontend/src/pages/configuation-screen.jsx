@@ -5,6 +5,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
+import { Box } from "@mui/material";
+import Header from "../components/Header";
 
 function Configuration() {
   const [classes, setClasses] = useState([]);
@@ -101,76 +103,79 @@ function Configuration() {
   ];
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "top",
-        height: "100vh",
-        marginLeft: 350,
-      }}
-    >
+    <Box ml="20px" mt="10px">
+      <Header title="Configuration" subtitle="Add or Delete Classes" />
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
-          height: 800,
-          width: "50%",
-          marginLeft: 0,
-          marginRight: 50,
-          marginTop: 33,
+          justifyContent: "top",
+          height: "100vh",
+          marginLeft: 350,
         }}
       >
-        <DataGrid
-          rows={classes}
-          editMode="row"
-          columns={columns}
-          pageSize={13}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
-          onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
-        />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: 800,
+            width: "50%",
+            marginLeft: 0,
+            marginRight: 50,
+            marginTop: 33,
+          }}
+        >
+          <DataGrid
+            rows={classes}
+            editMode="row"
+            columns={columns}
+            pageSize={13}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+            onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
+          />
+        </div>
+        <Stack spacing={1.5}>
+          <TextField
+            height="150"
+            width="200"
+            id="ClassNumber"
+            label="Class Number"
+            value={classNumber}
+            onChange={handleClassNumChange}
+            margin="normal"
+          />
+          <TextField
+            height="150"
+            width="200"
+            id="Track"
+            label="Track"
+            value={track}
+            onChange={handleTrackChange}
+            margin="normal"
+          />
+          <Button
+            variant="contained"
+            onClick={handleClick}
+            style={{
+              backgroundColor: "green",
+            }}
+          >
+            Add Class
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleDeleteClick}
+            style={{
+              backgroundColor: "red",
+            }}
+          >
+            Delete Selected Courses
+          </Button>
+        </Stack>
       </div>
-      <Stack spacing={1.5}>
-        <TextField
-          height="150"
-          width="200"
-          id="ClassNumber"
-          label="Class Number"
-          value={classNumber}
-          onChange={handleClassNumChange}
-          margin="normal"
-        />
-        <TextField
-          height="150"
-          width="200"
-          id="Track"
-          label="Track"
-          value={track}
-          onChange={handleTrackChange}
-          margin="normal"
-        />
-        <Button
-          variant="contained"
-          onClick={handleClick}
-          style={{
-            backgroundColor: "green",
-          }}
-        >
-          Add Class
-        </Button>
-        <Button
-          variant="contained"
-          onClick={handleDeleteClick}
-          style={{
-            backgroundColor: "red",
-          }}
-        >
-          Delete Selected Courses
-        </Button>
-      </Stack>
-    </div>
+    </Box>
   );
 }
 
