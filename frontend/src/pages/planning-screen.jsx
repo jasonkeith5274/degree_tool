@@ -7,6 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import { Button } from "@mui/material";
 import { useEffect } from "react";
 import axios from "axios";
+import fileDownload from "js-file-download";
 
 
 const Planning = () => {
@@ -123,7 +124,28 @@ const Planning = () => {
 
   // this function will handle generating the pdf
   const handleGeneratePlan = (event) => {
+    
+    var cores = [core1, core2, core3, core4, core5];
+    var elecs = [elec1, elec2, elec3, elec4, elec5, elec6];
 
+    var formdata = new FormData();
+    formdata.append("core", cores);
+    formdata.append("electives", elecs);
+    formdata.append("track", degreeTrack);
+
+    axios({
+      method: "post",
+      url: "http://localhost:8000/api/plan",
+      headers: {"Content-Type": "multipart/form-data"},
+      data: formdata,
+      responseType: "blob",
+    })
+      .then(function (response) {
+        fileDownload(response.data, "degree_plan.pdf")
+      })
+      .catch(function (response) {
+        console.log(response);
+      })
   };
 
 

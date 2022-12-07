@@ -356,3 +356,92 @@ def audit(request):
 
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename=pdf_name)
+
+
+
+
+
+
+
+
+
+@csrf_exempt
+def generate_degree_plan(request):
+    if request.method != "POST":
+        return Http404()
+
+    data = request.POST.copy()
+
+    track = str(data.get("track"))
+    core = data.get("core").split(',')
+    electives = data.get("electives").split(',')
+
+    full_track = ""
+
+    if track == "trad":
+        full_track = "Traditional"
+    if track == "nat":
+        full_track = "Networks and Telecommunication"
+    if track == "is":
+        full_track = "Intelligent Systems"
+    if track == "ic":
+        full_track = "Interactive Computing"
+    if track == "sys":
+        full_track = "Systems"
+    if track == "ds":
+        full_track = "Data Science"
+    if track == "cs":
+        full_track = "Cybersecurity"
+
+    print("fulll track: " + full_track)
+
+
+    core_classes = [str(i) for i in core]
+    core_classes_str = ", CS ".join(core_classes)
+    core_classes_str = "CS " + core_classes_str
+
+    elective_classes = [str(i) for i in electives]
+    elective_classes_str = ", CS ".join(elective_classes)
+    elective_classes_str = "CS " + elective_classes_str
+
+
+
+    title = "Degree Plan"
+    text_lines = [
+        'Track: ' + full_track,
+        '',
+        ' '
+        'Core Courses:'
+        '   ' + core_classes_str,
+        ' ',
+        ' ',
+        'Elective Courses:'
+        '   ' + elective_classes_str,
+    ]
+
+    buffer = io.BytesIO()
+    p = canvas.Canvas(buffer)
+
+    p.setTitle(title)
+    p.setFont('Helvetica', size=36)
+    p.drawCentredString(300, 770, title)
+
+    # Draw things on the PDF. Here's where the PDF generation happens.
+    # See the ReportLab documentation for the full list of functionality.
+
+    text = p.beginText(40, 680)
+    text.setFont('Helvetica', size=14)
+    for line in text_lines:
+        text.textLine(line)
+    p.drawText(text)
+
+    # Close the PDF object cleanly, and we're done.
+    p.showPage()
+    p.save()
+
+    # FileResponse sets the Content-Disposition header so that browsers
+    # present the option to save the file.
+
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True)
+    

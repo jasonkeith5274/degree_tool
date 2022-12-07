@@ -28,5 +28,6 @@ urlpatterns = [
     path('api/audit/', views.audit, name = 'audit'),
     path('api/course/delete/<int:id>', views.delete_course),
     path('api/course/core/<str:track>', views.get_core_classes),
-    path('api/course/elective', views.get_elective_courses)
+    path('api/course/elective', views.get_elective_courses),
+    path('api/plan', views.generate_degree_plan)
 ]
