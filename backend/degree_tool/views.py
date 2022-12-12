@@ -123,12 +123,10 @@ def audit(request):
     for filename, file in request.FILES.items():
         name = request.FILES[filename].name
     file = request.FILES[filename].chunks()
-
     core_classes_taken     = list()
     elective_courses_taken = list()
     leveling_courses_taken = list()
     classes_completed      = list()
-
     lines = ""
     for tmp in file:
         tmp = tmp.decode("utf-8")
